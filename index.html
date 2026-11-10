@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Meet Memo — เตือนจนเรื่องสำคัญไม่หลุด</title>
+<meta name="description" content="Memo ผู้ช่วยใน LINE ที่จดนัด เตือนงาน และสรุปประชุมให้ พร้อมน้องหมา Magnet ที่โตไปกับคุณ">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFBF2;--ink:#473C29;--sand:#E3DDCF;--gold:#FDBB21;--pink:#FEC2B3;--dark:#1D1A12;--r:28px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(16px,1.2vw,19px)/1.7 'Noto Sans Thai',system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{margin:0;font-weight:800;line-height:1.25;color:var(--dark)}
+h2{font-size:clamp(30px,4.6vw,64px)}p{margin:0}
+section{padding:clamp(72px,10vw,140px) clamp(20px,6vw,96px)}
+.wrap{max-width:1180px;margin:0 auto}
+.lead{max-width:34em;margin-top:20px;font-size:1.1em}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font-weight:800;padding:.85em 1.6em;border-radius:99px;text-decoration:none;transition:transform .25s,background .25s}
+.btn:hover{transform:translateY(-3px) rotate(-1.5deg);background:#000}.btn.g{background:var(--gold);color:var(--ink)}
+nav{position:fixed;z-index:50;left:0;right:0;top:0;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,48px) 14px;display:flex;justify-content:space-between;align-items:center;transition:background .3s}
+nav.s{background:rgba(255,251,242,.88);backdrop-filter:blur(10px)}nav b{font-size:1.3em;color:var(--dark)}nav .btn{padding:.5em 1.2em;font-size:.9em}
+/* hero */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#D5E4EE;padding:0}
+.stage{position:absolute;left:50%;top:50%;width:max(100vw,177.78svh);aspect-ratio:16/9;transform:translate(-50%,-50%);--mx:0;--my:0}
+.stage>img,.stage>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.stage .L0{transform:translate(calc(var(--mx)*-6px),calc(var(--my)*-4px))}.stage .L1{transform:translate(calc(var(--mx)*4px),calc(var(--my)*3px))}
+.stage img:last-of-type,.stage svg:last-of-type{transform:translate(calc(var(--mx)*14px),calc(var(--my)*8px)) rotate(calc(var(--mx)*1.2deg))}
+.stage:hover .ear{animation-duration:.55s!important;animation-delay:0s!important}
+.pugzone{position:absolute;left:52%;top:24%;width:30%;height:66%;cursor:pointer}
+.bark{position:absolute;left:46%;top:12%;background:#fff;color:var(--ink);font-weight:800;padding:.5em 1em;border-radius:20px 20px 20px 4px;box-shadow:0 8px 24px #0002;opacity:0;transform:scale(.6) translateY(10px);transform-origin:0 100%;transition:.3s;pointer-events:none;font-size:clamp(13px,1.5vw,22px);z-index:3}
+.bark.on{opacity:1;transform:none}
+.hero:after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(90deg,#FFFBF2f2 0,#FFFBF2cc 30%,#FFFBF200 58%)}
+.copy{position:absolute;z-index:4;left:clamp(20px,6vw,96px);top:21%;max-width:min(560px,86vw);}
+.copy h1{font-size:clamp(40px,6.4vw,96px);line-height:1.08;color:var(--dark)}.copy p{margin:18px 0 26px;font-size:clamp(16px,1.5vw,22px);font-weight:600}
+.scroll{position:absolute;bottom:22px;left:50%;translate:-50% 0;z-index:4;font-weight:600;font-size:.85em;animation:bob 1.6s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px)}}
+.ear{animation:ear 5.5s ease-in-out infinite}
+@keyframes ear{0%,58%,100%{transform:rotate(0)}64%{transform:rotate(var(--a))}70%{transform:rotate(calc(var(--a)*-.6))}76%{transform:rotate(calc(var(--a)*.5))}82%{transform:rotate(0)}}
+.lid{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0);animation:blink 4.4s infinite}
+@keyframes blink{0%,91%,100%{transform:scaleY(0)}94.5%{transform:scaleY(1)}98%{transform:scaleY(0)}}
+/* pain */
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;margin-top:56px}
+.note{position:relative;border:0;font:800 1.05em/1.5 inherit;font-family:inherit;color:var(--ink);text-align:left;padding:28px 24px 56px;min-height:190px;cursor:pointer;background:var(--gold);transform:rotate(var(--t));box-shadow:0 14px 22px -12px #473c2955;transition:transform .3s}
+.note:nth-child(even){background:var(--pink)}.note:hover{transform:rotate(0) translateY(-8px) scale(1.03)}
+.note i{position:absolute;left:20px;bottom:16px;font:600 .8em/1 inherit;font-style:normal;background:var(--ink);color:var(--bg);border-radius:99px;padding:.45em .9em}
+/* feature rows */
+.row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
+.sand{background:var(--sand)}
+.phone{width:min(300px,70vw);aspect-ratio:9/18.5;margin:auto;background:#fff;border:10px solid var(--dark);border-radius:42px;padding:46px 14px 16px;display:flex;flex-direction:column;gap:10px;font-size:.82em;line-height:1.45;overflow:hidden;position:relative}
+.phone:before{content:"";position:absolute;top:10px;left:50%;translate:-50% 0;width:70px;height:18px;border-radius:9px;background:var(--dark)}
+.b{max-width:84%;padding:.6em .9em;border-radius:16px;animation:pop .4s both}.me{align-self:flex-end;background:#06C755;color:#fff}.bot{background:#EEE8DA}
+.lv{border-left:6px solid var(--c);background:#fff;padding:.6em .8em;border-radius:0 12px 12px 0;box-shadow:0 4px 10px #0001}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.9)}}
+.tabs{display:flex;gap:10px;margin:28px 0;flex-wrap:wrap}.tabs button{font:800 1em inherit;font-family:inherit;border:2px solid var(--ink);background:none;color:var(--ink);padding:.55em 1.3em;border-radius:99px;cursor:pointer;transition:.25s}
+.tabs button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.mascot{width:min(380px,80%);margin:auto;display:block;transition:transform .4s cubic-bezier(.3,1.6,.5,1);cursor:pointer;filter:drop-shadow(0 20px 18px #473c2933)}.mascot:hover{transform:translateY(-12px) rotate(-3deg) scale(1.04)}
+.xp{height:22px;border-radius:99px;background:#fff;overflow:hidden;margin-top:18px}.xp i{display:block;height:100%;width:var(--w);background:var(--gold);border-radius:99px;transition:width .8s cubic-bezier(.3,1,.4,1)}
+/* hats */
+.hats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(20px,3vw,44px);margin-top:60px}
+.hat{text-align:center}.hat .pic{position:relative;aspect-ratio:900/1100;max-width:280px;margin:auto;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.hat:hover .pic{transform:translateY(-10px) scale(1.04)}.pic img{position:absolute;inset:0;width:100%;height:100%}
+.pic .e{transform-origin:var(--o);animation:wag 3.6s ease-in-out infinite;animation-delay:var(--d)}
+.hat:hover .pic .e{animation-duration:.5s;animation-delay:0s}
+@keyframes wag{0%,55%,100%{transform:rotate(0)}62%{transform:rotate(var(--a))}69%{transform:rotate(calc(var(--a)*-.7))}76%{transform:rotate(calc(var(--a)*.5))}84%{transform:rotate(0)}}
+.hat h3{margin-top:20px;font-size:1.5em}.hat p{max-width:20em;margin:6px auto 0}
+/* recap (Spotify wrapped style) */
+.recap{background:#14110A;color:#FFFBF2}.recap h2{color:#FFFBF2}.recap .lead{opacity:.8}
+.rtabs{display:flex;gap:10px;margin:28px 0 0}.rtabs button{font:800 .95em inherit;font-family:inherit;background:#2a2417;color:#FFFBF2;border:0;padding:.6em 1.4em;border-radius:99px;cursor:pointer}.rtabs button[aria-pressed=true]{background:var(--gold);color:var(--dark)}
+.story{position:relative;width:min(360px,86vw);aspect-ratio:9/16;border-radius:28px;overflow:hidden;margin:44px auto 0;box-shadow:0 30px 80px -20px #FDBB2155;cursor:pointer;user-select:none}
+.slide{position:absolute;inset:0;padding:64px 28px 28px;display:flex;flex-direction:column;justify-content:center;gap:14px;opacity:0;transform:scale(1.06);transition:opacity .5s,transform .6s}
+.slide.on{opacity:1;transform:none}.slide small{font-size:.95em;font-weight:600;opacity:.85}.slide b{display:block;font-size:clamp(64px,22vw,96px);line-height:1;font-weight:800;letter-spacing:-.02em}
+.slide h3{font-size:1.9em;color:inherit}.slide img{width:62%;align-self:center;margin-top:8px;animation:float 3s ease-in-out infinite}@keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}
+.bars{position:absolute;z-index:5;top:16px;left:16px;right:16px;display:flex;gap:5px}.bars i{flex:1;height:4px;border-radius:4px;background:#0003;overflow:hidden}.bars i:after{content:"";display:block;height:100%;width:0;background:#fff}
+.bars i.d:after{width:100%}.bars i.a:after{animation:fill var(--ms) linear forwards}@keyframes fill{to{width:100%}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips span{background:#0002;border-radius:99px;padding:.3em .9em;font-weight:800}
+.bar{display:flex;align-items:center;gap:10px;font-weight:800}.bar i{height:14px;border-radius:7px;background:currentColor;opacity:.9;width:0;transition:width 1s .3s}.slide.on .bar i{width:var(--w)}
+/* cta */
+.cta{background:var(--gold);text-align:center;overflow:hidden}.cta img{width:min(760px,100%);margin:40px auto 0;display:block}
+footer{padding:36px;text-align:center;font-size:.85em;background:var(--dark);color:#FFFBF2a0}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media(max-width:820px){.row{grid-template-columns:1fr}.copy{top:15%}.pugzone{left:30%;width:60%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style></head><body>
+<nav id="nav"><b>Memo</b><a class="btn g" href="#start">เพิ่มเพื่อนใน LINE</a></nav>
+
+<header class="hero" id="top"><div class="stage" id="stage"><img class="L0" alt="Magnet ชูมือถืออยู่ในออฟฟิศ" src="assets/hero-bg.webp"><svg class="ov" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true"><g class="ear" style="transform-origin:1412px 419px;--a:8deg;animation-duration:5.6s;animation-delay:0.13s"><path d="M 1412.28125 347.695312 C 1414.257812 342.460938 1424.410156 317.03125 1446.574219 311.035156 C 1457.746094 308.015625 1471.238281 310.128906 1473.179688 310.445312 C 1486.726562 312.664062 1488.304688 317 1497.421875 316.355469 C 1507.902344 315.621094 1509.53125 309.628906 1524.027344 305.125 C 1530.613281 303.078125 1538.632812 300.585938 1546.492188 302.167969 C 1569.945312 306.882812 1579.726562 345.367188 1581.96875 354.199219 C 1587.617188 376.433594 1586.699219 387.371094 1584.925781 393.21875 C 1583.417969 398.179688 1580.941406 406.320312 1574.28125 410.363281 C 1560.65625 418.636719 1533.691406 404.894531 1523.804688 397.566406 C 1487.535156 370.664062 1483.953125 344.53125 1456.667969 342.628906 C 1452.128906 342.3125 1443.761719 344.082031 1436.585938 350.542969 C 1427.519531 349.363281 1421.347656 348.875 1412.28125 347.695312 " fill="#715A3C"/><path d="M 1477.480469 342.335938 C 1464.953125 335.550781 1451.492188 332.257812 1443 329.738281 C 1444.867188 327.453125 1450.816406 321.640625 1462.058594 322.582031 C 1479.542969 324.050781 1493.425781 344.421875 1496.894531 353.484375 " fill="#382D1A"/></g></svg><img class="L1" alt="" src="assets/hero-mid.webp"><svg class="ov" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true"><g class="ear" style="transform-origin:1194px 616px;--a:-8deg;animation-duration:6.5s;animation-delay:0.83s"><path d="M 1193.824219 444.308594 C 1190.378906 440.769531 1179.828125 430.863281 1164.171875 429.890625 C 1149.882812 429.007812 1139.398438 436.113281 1132.34375 440.773438 C 1115.707031 451.765625 1117.828125 459.039062 1099.160156 476.953125 C 1081.699219 493.707031 1074.042969 492.910156 1065.972656 506.332031 C 1063.507812 510.425781 1056.390625 522.910156 1057.8125 539.519531 C 1059.136719 555.023438 1067.210938 565.707031 1070.324219 569.710938 C 1077.292969 578.6875 1079.652344 576.46875 1087.734375 586.304688 C 1098.375 599.261719 1096.4375 605.738281 1105.144531 611.058594 C 1111.527344 614.964844 1120.226562 616.164062 1127.449219 613.507812 C 1130.421875 612.417969 1138.761719 608.605469 1145.949219 589.027344 C 1154.121094 566.753906 1148.378906 555.496094 1149.210938 521.5625 C 1150.351562 475.097656 1161.15625 465.535156 1164.714844 462.808594 C 1171.589844 457.542969 1179.496094 456.285156 1184.847656 456.007812 C 1187.839844 452.105469 1190.832031 448.207031 1193.824219 444.308594 " fill="#715A3C"/><path d="M 1161.03125 484.203125 C 1168.53125 472.085938 1178.578125 462.539062 1184.695312 456.132812 C 1181.933594 455.078125 1173.886719 452.988281 1164.597656 459.398438 C 1150.15625 469.359375 1148.230469 493.9375 1149.726562 503.527344 " fill="#382D1A"/></g></svg><img alt="" src="assets/hero-pug.webp"><svg class="ov" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true"><ellipse class="lid" cx="1280" cy="536" rx="67" ry="78" fill="#FDE3AA" style="animation-delay:0.37s"/><ellipse class="lid" cx="1476" cy="474" rx="66" ry="75" fill="#FDE3AA" style="animation-delay:0.37s"/></svg><div class="pugzone" id="pz"></div><div class="bark" id="bark">โฮ่ง! พรุ่งนี้มีนัดนะ</div></div>
+<div class="copy"><h1>Meet Memo<br>เตือนจนเรื่องสำคัญไม่หลุด</h1><p>ผู้ช่วยใน LINE ที่จดนัด ตามงาน และสรุปประชุมให้ โดยมี Magnet น้องหมาเป็นเพื่อนคู่ใจ</p><a class="btn" href="#start">เริ่มใช้ฟรีใน LINE</a></div>
+<div class="scroll">เลื่อนลงดูน้องทำงาน ↓</div></header>
+
+<section id="pain"><div class="wrap rv"><h2>“ช่วย” จำทุกเรื่องสำคัญ</h2><p class="lead">ติดสติ๊กเกอร์เห็นด้วยในปัญหาที่คุณเจอบ่อยที่สุด กดซ้ำได้เลย</p><div class="notes" id="notes"></div></div></section>
+
+<section class="sand" id="how"><div class="wrap row rv"><div><h2>ฝากแชทเดียว<br>แจ้งเตือนครบทุกนัด</h2><p class="lead">ฝากในแชทส่วนตัว หรือเพิ่ม Memo เข้ากลุ่ม แล้วพิมพ์เหมือนคุยกับเพื่อน Memo จะจดวัน เวลา และคนที่เกี่ยวข้องให้เอง ซิงก์ลง Google Calendar ด้วย</p><p class="lead"><b>เตือนได้ 3 ระดับ</b> เลือกว่าเรื่องไหนแค่เตือนเบาๆ เรื่องไหนต้องตามจนกว่าจะตอบ</p></div>
+<div class="phone"><div class="b me">พรุ่งนี้ 10 โมง ส่งสไลด์ให้ลูกค้า</div><div class="b bot">จดแล้ว! เตือนระดับไหนดี?</div><div class="lv" style="--c:#06C755">ปกติ</div><div class="lv" style="--c:#FDBB21">สำคัญ</div><div class="lv" style="--c:#E8665A">สำคัญมาก! เตือนซ้ำจนกว่าจะตอบ</div></div></div></section>
+
+<section id="tone"><div class="wrap row rv"><div><h2>ปรับโทนการคุยได้ 2 โหมด</h2><div class="tabs" role="group" aria-label="โหมดการคุย"><button aria-pressed="true" data-t="0">กันเอง</button><button aria-pressed="false" data-t="1">สุภาพ นอบน้อม</button></div>
+<div class="phone" style="margin:0;width:min(280px,70vw)" id="chat"></div></div><div><img class="mascot" id="tpug" alt="Magnet หมาพั๊ก" src="assets/pug-casual.webp"></div></div></section>
+
+<section class="sand" id="grow"><div class="wrap row rv"><div><h2>Magnet โตไปพร้อมกับคุณ</h2><p class="lead">ยิ่งใช้ Memo จัดการงานสม่ำเสมอ น้องยิ่งโต สะสมไฟประจำวันให้ครบเพื่อเลื่อนขั้น</p><div class="tabs" id="gt"></div><div class="xp"><i id="xp"></i></div><p id="gl" style="margin-top:10px;font-weight:800"></p></div><div><img class="mascot" id="gp" alt="Magnet" src="assets/grow_s16.webp"></div></div></section>
+
+<section id="hats"><div class="wrap rv"><h2>สะสมหมวกบอกความเป็นเรา</h2><p class="lead">แต่ละหมวกมาจากสไตล์การใช้งานของคุณ ลองเอาเมาส์ไปแตะดู หูน้องกระดิกด้วยนะ</p><div class="hats" id="hs"></div></div></section>
+
+<section class="recap" id="recap"><div class="wrap" style="text-align:center"><h2 class="rv">สรุปให้ ทุกสัปดาห์ ทุกปี</h2><p class="lead rv" style="margin-inline:auto">Memo ส่งการ์ดสรุปงานที่เสร็จแล้ว งานที่ค้างอยู่ และให้คุณประเมินความสนุกของสัปดาห์นี้ ปลายปีก็รวบเป็น Yearly recap ให้แชร์ได้</p><div class="rtabs" style="justify-content:center"><button aria-pressed="true" data-r="w">Weekly recap</button><button aria-pressed="false" data-r="y">Yearly recap</button></div><div class="story" id="story" aria-live="polite"></div><p style="margin-top:14px;opacity:.6;font-size:.85em">แตะการ์ดเพื่อข้าม</p></div></section>
+
+<section class="cta" id="start"><div class="wrap rv"><h2>เริ่มใช้งานได้แล้ววันนี้</h2><p class="lead" style="margin-inline:auto">สแกน QR Code เพื่อเพิ่มเพื่อน Memo ใน LINE แล้วฝากเรื่องแรกได้เลย</p><img src="assets/pug-qr.webp" alt="Magnet ชูมือถือ พร้อม QR Code LINE"></div></section>
+<footer>© Meet Memo · ทำด้วยความรัก โดยน้อง Magnet</footer>
+
+<script>
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+addEventListener('scroll',()=>$('#nav').classList.toggle('s',scrollY>40),{passive:true});
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.15}).observe&&document.querySelectorAll('.rv').forEach(function(el){window._io=window._io||new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.12});_io.observe(el)});
+// hero: pointer parallax + bark
+const st=$('#stage'),bk=$('#bark'),L=['เมี๊ยวว... เอ้ย โฮ่ง!','ใครลืมนัดบ้าง?','จดให้แล้วนะ!','เกาหูให้หน่อย~'];let bi=0,bt;
+st.addEventListener('pointermove',e=>{const r=st.getBoundingClientRect();st.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5)*2);st.style.setProperty('--my',((e.clientY-r.top)/r.height-.5)*2)});
+st.addEventListener('pointerleave',()=>{st.style.setProperty('--mx',0);st.style.setProperty('--my',0)});
+const say=()=>{bk.textContent=L[bi++%L.length];bk.classList.add('on');clearTimeout(bt);bt=setTimeout(()=>bk.classList.remove('on'),1800)};
+$('#pz').addEventListener('pointerenter',say);$('#pz').addEventListener('click',say);
+// notes
+const N=['ลืมนัดและเดดไลน์สำคัญ','ต้องคอยตามเพื่อนร่วมงาน','สรุปประชุมยาวๆ เองทุกครั้ง','ข้อมูลกระจัดกระจายหลายแอป','สลับแอปไปมาจนเสียสมาธิ','จำรายละเอียดคุยงานไม่ได้'];
+let V=N.map(_=>0);try{const v=JSON.parse(localStorage.getItem('mm-votes')||'[]');if(Array.isArray(v))V=N.map((_,i)=>+v[i]||0)}catch(e){}
+N.forEach((t,i)=>{const b=document.createElement('button');b.className='note';b.style.setProperty('--t',((i*37)%7-3)+'deg');const c=document.createElement('i');b.append(t,c);
+ const d=()=>c.textContent='✓ เห็นด้วย '+V[i];d();b.onclick=()=>{V[i]++;d();try{localStorage.setItem('mm-votes',JSON.stringify(V))}catch(e){}};$('#notes').append(b)});
+// tone
+const T=[['รับเรื่อง!','ได้เลย!','โอเค!'],['รับทราบครับ','ได้เลยครับ','เข้าใจแล้วครับ']],TP=['assets/pug-casual.webp','assets/pug-polite.webp'];
+function tone(k){const c=$('#chat');c.innerHTML='<div class="b me">ฝากเตือนส่งงานพรุ่งนี้</div>'+T[k].map((x,i)=>`<div class="b bot" style="animation-delay:${i*.25}s">${x}</div>`).join('');$('#tpug').src=TP[k]}
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-t]').forEach(x=>x.setAttribute('aria-pressed',x==b));tone(+b.dataset.t)});tone(0);
+// growth
+const G=[['Baby Magnet','assets/grow_s16.webp','35%'],['Teens Magnet','assets/grow_s17.webp','65%'],['Adult Magnet','assets/pug-adult.webp','95%']];
+G.forEach((g,i)=>{const b=document.createElement('button');b.textContent=g[0];b.onclick=()=>gs(i);$('#gt').append(b)});
+function gs(i){[...$('#gt').children].forEach((b,k)=>b.setAttribute('aria-pressed',k==i));$('#gp').src=G[i][1];$('#xp').style.setProperty('--w',G[i][2]);$('#xp').style.width=G[i][2];$('#gl').textContent=G[i][0]+' · ไฟสะสม '+G[i][2]}gs(0);
+// hats with wagging ears (clipped copies of the sprite rotate around the ear base)
+const H=[['s05','Eddy','เหมียวส้มนักจัดการ','จัดการเอกสารได้เป็นระเบียบ และเรียกใช้งานเกิน 20 ครั้ง/เดือน',[[.26,.145,.09,.085,-9],[.7,.15,.09,.085,9]]],
+['s06','Maxim','หมีดำนักวิเคราะห์','พูดคุยวิเคราะห์ความรู้ และเรียกใช้งานเกิน 20 ครั้ง/เดือน',[[.245,.12,.085,.065,-8],[.705,.15,.085,.065,8]]],
+['s07','Ozzie','หมูจิ๋วนักจัดแจง','จัดสรรชีวิต จัดสรรตารางงาน และเรียกใช้งานเกิน 20 ครั้ง/เดือน',[[.31,.12,.1,.075,-10],[.73,.12,.1,.075,10]]]];
+H.forEach(([k,n,r,d,ears])=>{const s=`assets/hat_${k}.webp`;const es=ears.map(([x,y,a,b,g],i)=>`<img class="e" alt="" src="${s}" style="clip-path:ellipse(${a*100}% ${b*100}% at ${x*100}% ${y*100}%);--o:${x*100}% ${(y+b*.7)*100}%;--a:${g}deg;--d:${i*.12}s">`).join('');
+ $('#hs').insertAdjacentHTML('beforeend',`<article class="hat"><div class="pic"><img alt="${r}" src="${s}">${es}</div><h3>หมวก ${n}</h3><p><b>${r}</b><br>${d}</p></article>`)});
+// recap
+const R={w:{ms:3800,bg:['#FDBB21','#473C29','#FEC2B3','#E8665A'],fg:['#1D1A12','#FFFBF2','#1D1A12','#fff'],s:[
+ `<small>สัปดาห์นี้คุณทำเสร็จไป</small><b>18</b><h3>งาน เก่งมาก!</h3><img src="assets/pug-adult.webp" alt="">`,
+ `<small>วันที่ลุยสุดๆ</small><h3>วันพุธ</h3><div class="bar">ส <i style="--w:30%"></i></div><div class="bar">พ <i style="--w:90%"></i></div><div class="bar">ศ <i style="--w:55%"></i></div>`,
+ `<small>ยังค้างอยู่ 3 เรื่อง</small><div class="chips"><span>ส่งสไลด์ลูกค้า</span><span>ตอบอีเมลบัญชี</span><span>นัดทันตแพทย์</span></div><h3>ไว้ไปต่อสัปดาห์หน้า</h3>`,
+ `<small>สัปดาห์นี้สนุกแค่ไหน?</small><div class="chips" style="font-size:2em"><span>😵</span><span>😐</span><span>🙂</span><span>🤩</span></div><h3>ประเมินแล้ว Memo จะจำไว้</h3>`]},
+ y:{ms:4200,bg:['#1D1A12','#FDBB21','#FEC2B3','#473C29','#E8665A'],fg:['#FDBB21','#1D1A12','#1D1A12','#FFFBF2','#fff'],s:[
+ `<small>ปีนี้คุณกับ Memo ผ่านมาด้วยกัน</small><b>365</b><h3>วัน ไม่ทิ้งกันเลย</h3>`,
+ `<small>งานที่ปิดได้ทั้งหมด</small><b>1,284</b><h3>เจ๋งกว่าที่คิดนะ</h3><img src="assets/pug-adult.webp" alt="">`,
+ `<small>เดือนที่แรงที่สุด</small><h3>ตุลาคม</h3><div class="bar">ก.ย. <i style="--w:40%"></i></div><div class="bar">ต.ค. <i style="--w:95%"></i></div><div class="bar">พ.ย. <i style="--w:60%"></i></div>`,
+ `<small>หมวกประจำปีของคุณ</small><h3>Eddy<br>เหมียวส้มนักจัดการ</h3><img src="assets/hat_s05.webp" alt="">`,
+ `<small>แชร์ให้โลกรู้</small><h3>ปีนี้ฉันไม่ลืมอะไรเลย</h3><a class="btn" href="#start" style="align-self:flex-start">แชร์การ์ดใน LINE</a>`]}};
+let rk='w',ri=0,rt;function draw(){const d=R[rk],sg=$('#story');clearTimeout(rt);
+ sg.innerHTML=`<div class="bars" style="--ms:${d.ms}ms">${d.s.map((_,i)=>`<i class="${i<ri?'d':i==ri?'a':''}"></i>`).join('')}</div>`+d.s.map((h,i)=>`<div class="slide ${i==ri?'on':''}" style="background:${d.bg[i]};color:${d.fg[i]}">${h}</div>`).join('');
+ if(!RM)rt=setTimeout(()=>{ri=(ri+1)%d.s.length;draw()},d.ms)}
+$('#story').onclick=e=>{if(e.target.closest('a'))return;ri=(ri+1)%R[rk].s.length;draw()};
+document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-r]').forEach(x=>x.setAttribute('aria-pressed',x==b));rk=b.dataset.r;ri=0;draw()});draw();
+</script></body></html>
